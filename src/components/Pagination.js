@@ -4,9 +4,9 @@ export default function Pagination({ pages, currentPage, nextPage }) {
     const pageLinks = [];
 
     for(let i = 1; i <= pages + 1; i++) {
-        let active = currentPage == i ? 'active' : '';
+        let active = currentPage === i ? 'active' : '';
         
-        pageLinks.push(<li className={`waves-effect ${active}`} onClick={() => nextPage(i)} ><a href="#">{i}</a></li>)
+        pageLinks.push(<li className={`waves-effect ${active}`} key={i} onClick={() => nextPage(i)} ><a href="#">{i}</a></li>)
     }
 
     return (
