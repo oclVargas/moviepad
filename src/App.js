@@ -9,6 +9,7 @@ import Pagination from './components/Pagination';
 // TODO: add a favorites section where user can star movies / rate maybe?
 // TODO: change design 
 // TODO: add react router to movie details page
+// TODO: add warning when no results found
 
 function App() {
   const [ movies, setMovies ] = useState([]);
@@ -60,8 +61,15 @@ function App() {
   return (
     <div className="App">
       <Nav />
-      { currentMovie == null ? <div><SearchArea handleSubmit={handleSubmit} handleChange={handleChange} /><MovieList movies={movies} viewMovieInfo={viewMovieInfo} /></div> : <MovieInfo currentMovie={currentMovie} closeMovieInfo={closeMovieInfo} /> }
-      { totalResults > 20 && currentMovie === null ? <Pagination pages={numberPages} nextPage={nextPage} currentPage={currentPage} /> : "" }
+      { currentMovie == null ? 
+        <div><SearchArea handleSubmit={handleSubmit} handleChange={handleChange} /><MovieList movies={movies} viewMovieInfo={viewMovieInfo} /></div> 
+        : <MovieInfo currentMovie={currentMovie} closeMovieInfo={closeMovieInfo} /> 
+      }
+
+      { totalResults > 20 && currentMovie === null ? 
+        <Pagination pages={numberPages} nextPage={nextPage} currentPage={currentPage} /> 
+        : "" 
+      }
     </div>
   );
 }
