@@ -2,7 +2,6 @@ import React from 'react';
 import Movie from './Movie';
 
 export default function MovieList({ movies, viewMovieInfo }) {
-    {console.log(movies)}
     return (
         <div className="container">
             <div className="row">
@@ -11,7 +10,7 @@ export default function MovieList({ movies, viewMovieInfo }) {
                         movies.length === 0 ? <div className="center-align teal-text" style={{marginTop: "300px", textAlign: "center"}}>Search for movies and see the results displayed here!</div> :
                         movies.map(movie => {
                             return (
-                                <Movie key={movie.id} viewMovieInfo={viewMovieInfo} movieId={movie.id} image={movie.poster_path} />
+                                <Movie key={movie.id} viewMovieInfo={viewMovieInfo} movieId={movie.id} image={movie.poster_path} title={movie.title} />
                             )
                         })
                     }

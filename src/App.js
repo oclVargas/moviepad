@@ -9,7 +9,8 @@ import Pagination from './components/Pagination';
 // TODO: add a favorites section where user can star movies / rate maybe?
 // TODO: change design 
 // TODO: add react router to movie details page
-// TODO: add warning when no results found
+// TODO: sort movies by language
+// TODO: add warning when no results found -- DONE!! YAY!!
 
 function App() {
   const [ movies, setMovies ] = useState([]);
@@ -82,7 +83,7 @@ function App() {
         <div className="center-align red-text" style={{marginTop: "300px", textAlign: "center"}}>NO RESULTS FOUND</div> : <MovieList movies={movies} viewMovieInfo={viewMovieInfo} />
       }
 
-      { totalResults > 20 && currentMovie === null ? 
+      { totalResults > 20 ? 
         <Pagination pages={numberPages} nextPage={nextPage} currentPage={currentPage} /> 
         : "" 
       }
