@@ -17,6 +17,7 @@ function App() {
   const [ totalResults, settotalResults] = useState(0);
   const [ currentPage, setcurrentPage ] = useState(1);
   const [ currentMovie, setcurrentMovie ] = useState(null);
+  const [ resultsFound, setresultsFound ] = useState(true);
   const apiKey = process.env.REACT_APP_API;
 
   const handleSubmit = (e) => {
@@ -25,7 +26,18 @@ function App() {
       .then(data => data.json())
       .then(data => {
         console.log(data);
-        setMovies([...data.results]);
+        // do something here about sending in a blank string might help hehe
+        // if data.results is empty/ull/undefined then setMovies to empty array
+        // data.results === undefined ? setMovies([]) : setMovies([...data.results]);
+        if (data.results === undefined) {
+          setresultsFound(false);
+          setMovies([])
+        } else {
+          setMovies([...data.results])
+          if (data.results.length === 0) {
+            setresultsFound(false);
+          }
+        }
         settotalResults(data.total_results);
       })
   }
@@ -61,9 +73,13 @@ function App() {
   return (
     <div className="App">
       <Nav />
-      { currentMovie == null ? 
-        <div><SearchArea handleSubmit={handleSubmit} handleChange={handleChange} /><MovieList movies={movies} viewMovieInfo={viewMovieInfo} /></div> 
+      { currentMovie === null ? 
+        <div><SearchArea handleSubmit={handleSubmit} handleChange={handleChange} /></div> 
         : <MovieInfo currentMovie={currentMovie} closeMovieInfo={closeMovieInfo} /> 
+      }
+      {
+        currentMovie === null && resultsFound === false && totalResults === 0 ?
+        <div className="center-align red-text" style={{marginTop: "300px", textAlign: "center"}}>NO RESULTS FOUND</div> : <MovieList movies={movies} viewMovieInfo={viewMovieInfo} />
       }
 
       { totalResults > 20 && currentMovie === null ? 
